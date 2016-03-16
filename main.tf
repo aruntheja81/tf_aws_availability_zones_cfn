@@ -1,6 +1,3 @@
-variable "region" {}
-variable "account" {}
-
 output "primary" {
     value = "${lookup(var.primary_azs, format(\"%s-%s\", var.account, var.region))}"
 }
