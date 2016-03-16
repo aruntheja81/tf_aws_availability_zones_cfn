@@ -1,18 +1,19 @@
+resource "aws_cloudformation_stack" "availability_zones" {
+  count = "${var.enabled}"
+  name = "availability-zones"
+  
+  template_body = "${file("${path.module}/availability-zones.json")}"
+}
+
 output "primary" {
-    value = "${lookup(var.primary_azs, format(\"%s-%s\", var.account, var.region))}"
+    value = "${ element(split(",", aws_cloudformation_stack.outputs.AvailabilityZones), 0) }"
 }
 output "secondary" {
-    value = "${lookup(var.secondary_azs, format(\"%s-%s\", var.account, var.region))}"
+    value = "${ element(split(",", aws_cloudformation_stack.outputs.AvailabilityZones), 1) }"
 }
 output "tertiary" {
-    value = "${lookup(var.tertiary_azs, format(\"%s-%s\", var.account, var.region))}"
+    value = "${ element(split(",", aws_cloudformation_stack.outputs.AvailabilityZones), 2) }"
 }
 output "list_all" {
-    value = "${lookup(var.list_all, format(\"%s-%s\", var.account, var.region))}"
-}
-output "az_count" {
-    value = "${lookup(var.az_counts, format(\"%s-%s\", var.account, var.region))}"
-}
-output "list_letters" {
-    value = "${lookup(var.list_letters, format(\"%s-%s\", var.account, var.region))}"
+    value = "${aws_cloudformation_stack.outputs.AvailabilityZones}"
 }
