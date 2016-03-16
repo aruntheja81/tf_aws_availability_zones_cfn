@@ -1,4 +1,4 @@
-TemplateFormatVersion": "2010-09-09",
+{"TemplateFormatVersion": "2010-09-09",
   "Parameters": {},
   "Resources": {
     "DummySecurityGroup": {
