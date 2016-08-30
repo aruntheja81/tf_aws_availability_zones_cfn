@@ -1,7 +1,5 @@
 resource "aws_cloudformation_stack" "availability_zones" {
-  count = "${var.enabled}"
   name = "availability-zones"
-  
   template_body = "${file("${path.module}/availability-zones.json")}"
 }
 
